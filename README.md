@@ -1,6 +1,4 @@
-# frontend-examples
-
-This repository contains small, minimalistic examples and demos of implementations of various interface features.
+# Frontend examples
 
 ## О репозитории
 
@@ -18,7 +16,7 @@ This repository contains small, minimalistic examples and demos of implementatio
 
 ## Структура репозитория
 
-Каждый проект размещается в отдельной папке в корне репозитория. Все проекты независимы друг от друга и могут быть запущены отдельно.
+Каждый проект размещается в отдельной папке внутри папки `examples`. Все проекты независимы друг от друга и могут быть запущены отдельно.
 
 ## Руководство для контрибьюторов
 
