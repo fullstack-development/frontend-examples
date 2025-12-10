@@ -22,6 +22,10 @@ FROM nginx:alpine AS runner
 # Удаляем дефолтную конфигурацию nginx
 RUN rm -f /etc/nginx/conf.d/default.conf
 
+# Создаем символические ссылки для логов в stdout/stderr
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
+
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 
@@ -33,7 +37,6 @@ COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Проверяем что файлы скопировались
 RUN ls -la /usr/share/nginx/html && \
-    ls -la /etc/nginx/conf.d/ && \
     cat /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
