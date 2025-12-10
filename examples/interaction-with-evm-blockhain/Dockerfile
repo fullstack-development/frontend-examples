@@ -18,12 +18,23 @@ COPY . .
 RUN pnpm build
 
 FROM nginx:alpine AS runner
-WORKDIR /usr/share/nginx/html
 
+# Удаляем дефолтную конфигурацию nginx
+RUN rm -f /etc/nginx/conf.d/default.conf
+
+WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 
+# Копируем собранное приложение
 COPY --from=builder /app/dist ./
+
+# Копируем кастомную конфигурацию nginx
 COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Проверяем что файлы скопировались
+RUN ls -la /usr/share/nginx/html && \
+    ls -la /etc/nginx/conf.d/ && \
+    cat /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
